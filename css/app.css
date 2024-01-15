@@ -1,0 +1,78 @@
+/* Cabecera de la aplicación */
+.cabecera {
+  border-bottom: .2rem solid var(--negro);
+  padding: .1rem auto;
+}
+.titulo {
+  text-align: center;
+  text-shadow: -5px -3px 0px var(--negro);
+}
+
+/* Generales */
+.fntMath {
+  font-family: var(--fuenteOperaciones);
+}
+
+/* PERSONAJES */
+.personajes {
+  display: flex;
+  flex-direction: column;
+}
+@media (min-width: 600px) {
+  .personajes {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+.descripcion_personaje {
+  margin: 1.5rem;
+}
+
+@media (min-width: 600px) {
+  .descripcion_personaje {
+    width: 40%;
+  }
+}
+
+/* imagenes de fondo */
+.bg_applejack {
+  background-image: linear-gradient(to bottom, 
+                    rgba(255,255,255,0.7) 70%,
+                    var(--blanco) 100%),
+                    url(../img/applejack.png);
+  background-position: right top;
+  background-repeat: no-repeat;
+  background-size: 60%;
+  background-origin: padding-box;
+}
+.bg_fluttershy {
+  background-image: linear-gradient(to bottom, 
+                    rgba(255,255,255,0.7) 70%,
+                    var(--blanco) 100%),
+                    url(../img/fluttershy.webp);
+  background-position: left top;
+  background-repeat: no-repeat;
+  background-size: 60%;
+  background-origin: padding-box;
+}
+.bg_rainbow {
+  background-image: linear-gradient(to bottom, 
+                    rgba(255,255,255,0.7) 70%,
+                    var(--blanco) 100%),
+                    url(../img/rainbow.webp);
+  background-position: right top;
+  background-repeat: no-repeat;
+  background-size: 60%;
+  background-origin: padding-box;
+}
+.bg_pinkie {
+  background-image: linear-gradient(to bottom, 
+                    rgba(255,255,255,0.7) 70%,
+                    var(--blanco) 100%),
+                    url(../img/pinkie.webp);
+  background-position: left top;
+  background-repeat: no-repeat;
+  background-size: 70%;
+  background-origin: padding-box;
+}

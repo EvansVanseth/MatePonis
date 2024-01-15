@@ -1,0 +1,150 @@
+/* Custom properties */
+:root {
+  /*Fuentes de letra*/
+  --fuenteTitulos : 'Merienda', cursive;
+  --fuenteOperaciones : 'Noto Sans Mono', monospace;
+  --fuenteGeneral: 'Dosis', sans-serif;
+  /*Paleta de colores*/
+  --colorApplejack: #fd9431; /* Le gusta sumar con su ayuda */
+  --colorApplejack2: #ffe676; /* Le gusta sumar con su ayuda */
+  --colorFluttershy: #ffe65c; /*Le gusta restar para quitar hierro al asunto */
+  --colorFluttershy2: #ffa3f0; /*Le gusta restar para quitar hierro al asunto */
+  --colorRainbow: #79ceff; /*Le encanta multiplicar para ser más rápida*/
+  --colorRainbow2: #fc6450; /*Le encanta multiplicar para ser más rápida*/
+  --colorPinky: #ffa2ff; /*Le encanta dividir para repartir su alegria*/
+  --colorPinky2: #fd00fd; /*Le encanta dividir para repartir su alegria*/
+  --blanco: #ffffff;
+  --negro: #1f1e1e;
+  --grisClaro: #e1e1e1;
+  /* Espaciados */
+  --separacion: 2rem;
+}
+
+/* Imprescindibles */
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+body {
+  font-family: var(--fuenteGeneral);
+  font-size: 1.2rem;
+  line-height: 1.5;
+}
+
+/* Globales */
+h1, h2, h3 {
+  font-weight: 900;
+  font-family: var(--fuenteTitulos);
+  margin: calc(var(--separacion)/2) 0 ;
+}
+h1 {
+  font-size: 3.4rem;
+}
+h2 {
+  font-size: 2.5rem;
+}
+h3 {
+  font-size: 1.9rem;
+}
+a {
+  text-decoration: none;
+}
+img {
+  max-width: 100%;
+  display: block;
+  height: auto;
+}
+.contenedor {
+  max-width: 120rem;
+  width: 90%;
+  margin: 0 auto;
+}
+.btn {
+  border: .1rem solid var(--negro);
+  border-radius: 1rem;
+  padding: .5rem 2rem;
+  transition-property: background-color;
+  transition-duration: 0.4s;
+}
+
+.btn-applejack:hover {
+  background-color: var(--colorApplejack);
+}
+.btn-fluttershy:hover {
+  background-color: var(--colorFluttershy);
+}
+.btn-rainbow:hover {
+  background-color: var(--colorRainbow);
+}
+.btn-pinkie:hover {
+  background-color: var(--colorPinky);
+}
+
+.text-right {
+  text-align: right;
+}
+
+/* Degradados */
+.sombra_ponis {
+  color: transparent;
+  background: linear-gradient(to right, 
+              var(--colorApplejack) 20%, 
+              var(--colorFluttershy) 40%,
+              var(--colorRainbow) 60%,
+              var(--colorPinky) 80%
+              );
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+.sombra_applejack {
+  color: transparent;
+  background: linear-gradient(to right, 
+              var(--colorApplejack2) 20%, 
+              var(--colorApplejack) 40%, 
+              var(--colorApplejack) 60%, 
+              var(--colorApplejack2) 80%
+              );
+  -webkit-background-clip: text;
+  background-clip: text;
+  text-shadow: -.2rem -.2rem 0 black;
+}
+.sombra_fluttershy {
+  color: transparent;
+  background: linear-gradient(to right, 
+              var(--colorFluttershy2) 20%, 
+              var(--colorFluttershy) 40%, 
+              var(--colorFluttershy) 60%, 
+              var(--colorFluttershy2) 80%
+              );
+  -webkit-background-clip: text;
+  background-clip: text;
+  text-shadow: -.2rem -.2rem 0 black;
+}
+.sombra_rainbow {
+  color: transparent;
+  background: linear-gradient(to right, 
+              var(--colorRainbow2) 20%, 
+              var(--colorRainbow) 40%, 
+              var(--colorRainbow) 60%, 
+              var(--colorRainbow2) 80% 
+              );
+  -webkit-background-clip: text;
+  background-clip: text;
+  text-shadow: -.2rem -.2rem 0 black;
+}
+.sombra_pinkie {
+  color: transparent;
+  background: linear-gradient(to right, 
+              var(--colorPinky2) 20%, 
+              var(--colorPinky) 40%, 
+              var(--colorPinky) 60%, 
+              var(--colorPinky2) 80% 
+              );
+  -webkit-background-clip: text;
+  background-clip: text;
+  text-shadow: -.2rem -.2rem 0 black;
+}
+
