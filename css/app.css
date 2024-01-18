@@ -8,11 +8,48 @@
   text-shadow: -5px -3px 0px var(--negro);
 }
 
+/* Pagina principal */
+.intro_nombre {
+  width: 30rem;
+  text-align: center;
+  margin: 1rem auto;
+  border: .3rem solid var(--colorTwilight);
+  border-radius: 1rem;
+  font-size: 2rem;
+}
 /* Generales */
 .fntMath {
   font-family: var(--fuenteOperaciones);
 }
 
+/* JUGADOR */
+.jugador {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 2rem;
+}
+@media (min-width: 600px) {
+  .jugador {
+    font-size: 2.8rem;
+  }
+}
+.nivel_jugador {
+  margin: 0;
+  padding: 0;
+  font-family: var(--fuenteGeneral);
+}
+.nombre_jugador {
+  padding: 0;
+  margin: 0;
+  font-family: var(--fuenteTitulos);
+}
+.exp_jugador {
+  padding: 0;
+  margin: 0;
+  font-family: var(--fuenteGeneral);
+}
 /* PERSONAJES */
 .personajes {
   display: flex;
@@ -27,12 +64,30 @@
 }
 .descripcion_personaje {
   margin: 1.5rem;
+  text-shadow: .1rem  .1rem 0 white,
+              -.1rem  .1rem 0 white,
+              -.1rem -.1rem 0 white,
+               .1rem -.1rem 0 white;
+  position: relative;
 }
 
 @media (min-width: 600px) {
   .descripcion_personaje {
     width: 40%;
   }
+}
+
+.deshabilitar::before {
+  /* filter: grayscale(100%); */
+  position: absolute;
+  content:"";
+  inset: 0;
+  background-color: rgba(255,255,255,0.7);
+}
+
+.desbloquear {
+  position: relative;
+  color: red;
 }
 
 /* imagenes de fondo */
@@ -74,5 +129,15 @@
   background-position: left top;
   background-repeat: no-repeat;
   background-size: 70%;
+  background-origin: padding-box;
+}
+.bg_twilight {
+  background-image: linear-gradient(to bottom, 
+                    rgba(255,255,255,0.7) 70%,
+                    var(--blanco) 100%),
+                    url(../img/twilight.jpg);
+  background-position: right top;
+  background-repeat: no-repeat;
+  background-size: 60%;
   background-origin: padding-box;
 }

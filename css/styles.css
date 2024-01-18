@@ -13,6 +13,8 @@
   --colorRainbow2: #fc6450; /*Le encanta multiplicar para ser más rápida*/
   --colorPinky: #ffa2ff; /*Le encanta dividir para repartir su alegria*/
   --colorPinky2: #fd00fd; /*Le encanta dividir para repartir su alegria*/
+  --colorTwilight: #e49efa; /*Le encanta hacer de todo ayudando a sus amigas*/
+  --colorTwilight2: #5e91ff; /*Le encanta hacer de todo ayudando a sus amigas*/
   --blanco: #ffffff;
   --negro: #1f1e1e;
   --grisClaro: #e1e1e1;
@@ -30,7 +32,7 @@ html {
 }
 body {
   font-family: var(--fuenteGeneral);
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   line-height: 1.5;
 }
 
@@ -38,16 +40,16 @@ body {
 h1, h2, h3 {
   font-weight: 900;
   font-family: var(--fuenteTitulos);
-  margin: calc(var(--separacion)/2) 0 ;
+  margin: 1rem 0 0 0 ;
 }
 h1 {
-  font-size: 3.4rem;
+  font-size: 3.6rem;
 }
 h2 {
-  font-size: 2.5rem;
+  font-size: 2.8rem;
 }
 h3 {
-  font-size: 1.9rem;
+  font-size: 2.2rem;
 }
 a {
   text-decoration: none;
@@ -63,13 +65,15 @@ img {
   margin: 0 auto;
 }
 .btn {
+  display: block;
   border: .1rem solid var(--negro);
   border-radius: 1rem;
   padding: .5rem 2rem;
+  width: 30rem;
+  margin: .5rem auto; 
   transition-property: background-color;
   transition-duration: 0.4s;
 }
-
 .btn-applejack:hover {
   background-color: var(--colorApplejack);
 }
@@ -82,11 +86,27 @@ img {
 .btn-pinkie:hover {
   background-color: var(--colorPinky);
 }
-
+.btn-twilight:hover {
+  background-color: var(--colorTwilight);
+}
+/* ORGANIZADORES */
+.flex-column-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+/* ALINEACION DE TEXTO */
 .text-right {
   text-align: right;
 }
-
+.text-center {
+  text-align: center;
+}
+/* TAMAÑOS DE TEXTOS */
+.big-text {
+  font-size: 3rem;
+  margin: 1rem 0;
+}
 /* Degradados */
 .sombra_ponis {
   color: transparent;
@@ -142,6 +162,18 @@ img {
               var(--colorPinky) 40%, 
               var(--colorPinky) 60%, 
               var(--colorPinky2) 80% 
+              );
+  -webkit-background-clip: text;
+  background-clip: text;
+  text-shadow: -.2rem -.2rem 0 black;
+}
+.sombra_twilight {
+  color: transparent;
+  background: linear-gradient(to right, 
+              var(--colorTwilight2) 20%, 
+              var(--colorTwilight) 40%, 
+              var(--colorTwilight) 60%, 
+              var(--colorTwilight2) 80% 
               );
   -webkit-background-clip: text;
   background-clip: text;
