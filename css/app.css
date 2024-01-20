@@ -5,7 +5,7 @@
 }
 .titulo {
   text-align: center;
-  text-shadow: -5px -3px 0px var(--negro);
+  text-shadow: -.5rem 0 0px var(--negro);
 }
 
 /* Pagina principal */
@@ -13,8 +13,7 @@
   width: 30rem;
   text-align: center;
   margin: 1rem auto;
-  border: .3rem solid var(--colorTwilight);
-  border-radius: 1rem;
+
   font-size: 2rem;
 }
 /* Generales */
@@ -29,6 +28,7 @@
   justify-content: space-around;
   align-items: center;
   font-size: 2rem;
+  margin: 1rem auto 2rem auto;
 }
 @media (min-width: 600px) {
   .jugador {
@@ -44,6 +44,37 @@
   padding: 0;
   margin: 0;
   font-family: var(--fuenteTitulos);
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.nombre_jugador::after {
+  content:"";
+  background-image: url(../img/pluma.avif);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+  transform: rotateY(180deg);
+  display: block;
+  height: 3rem; 
+  width: 3rem;
+}
+.nombre_jugador::before {
+  content:"";
+  background-image: url(../img/pluma.avif);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+  position: relative;
+  right: .5rem;
+  display: block;
+  height: 3rem; 
+  width: 3rem;
+}
+@media (min-width: 600px) {
+  .nombre_jugador::before {
+    right: 1rem;
+  }
 }
 .exp_jugador {
   padding: 0;
@@ -88,6 +119,11 @@
 .desbloquear {
   position: relative;
   color: red;
+}
+
+.advertencia {
+  color: red;
+  font-weight: 700;
 }
 
 /* imagenes de fondo */
@@ -140,4 +176,51 @@
   background-repeat: no-repeat;
   background-size: 60%;
   background-origin: padding-box;
+}
+
+/* ZONA DE OPERACIONES */
+.zona-operaciones {
+  width: 100%;
+}
+@media (min-width: 600px) {
+  .zona-operaciones {
+    width: 50%;
+    margin: 0 auto;
+  }
+}
+
+.texto_operacion {
+  font-family: var(--fuenteOperaciones);
+  font-size: 3rem;
+  margin: 3rem auto 1rem auto;
+  text-align: center;
+  border-top: 0;
+  border-right: 0;
+  border-bottom: .3rem;
+  border-left: 0; 
+  border-style: solid;
+  border-color: var(--negro);
+  width: fit-content;
+}
+
+.intro_resultado {
+  margin: 0 0 1rem 0;
+  width: 15rem;
+  font-family: var(--fuenteOperaciones);
+  font-size: 3rem;
+  text-align: right;
+}
+
+.btn-comprobacion {
+  margin: 0 0 1rem 0;
+  padding: 0.7rem;
+  border-radius: 1rem;
+}
+
+.texto_comentario {
+  padding: 1rem 0;
+  margin: 0 auto;
+  text-align: center;
+  font-family: var(--fuenteTitulos);
+  font-size: 2rem;
 }

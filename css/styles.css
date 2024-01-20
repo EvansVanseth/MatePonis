@@ -15,9 +15,11 @@
   --colorPinky2: #fd00fd; /*Le encanta dividir para repartir su alegria*/
   --colorTwilight: #e49efa; /*Le encanta hacer de todo ayudando a sus amigas*/
   --colorTwilight2: #5e91ff; /*Le encanta hacer de todo ayudando a sus amigas*/
+  --colorFallo: #e73232; /*No quieres verlo*/
   --blanco: #ffffff;
   --negro: #1f1e1e;
   --grisClaro: #e1e1e1;
+  --gris: #aaaaaa;
   /* Espaciados */
   --separacion: 2rem;
 }
@@ -35,9 +37,19 @@ body {
   font-size: 1.5rem;
   line-height: 1.5;
 }
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
 
 /* Globales */
-h1, h2, h3 {
+h1, h2, h3, h4 {
   font-weight: 900;
   font-family: var(--fuenteTitulos);
   margin: 1rem 0 0 0 ;
@@ -50,6 +62,9 @@ h2 {
 }
 h3 {
   font-size: 2.2rem;
+}
+h3 {
+  font-size: 1.8rem;
 }
 a {
   text-decoration: none;
@@ -95,6 +110,18 @@ img {
   flex-direction: column;
   justify-content: center;
 }
+.margen-inferior {
+  margin: 0 0 1rem 0;
+}
+.margen-vertical {
+  margin: 3rem auto;
+}
+.ancho-contenido {
+  width: fit-content;
+}
+.centrado-por-margen {
+  margin: 0 auto;
+}
 /* ALINEACION DE TEXTO */
 .text-right {
   text-align: right;
@@ -102,10 +129,73 @@ img {
 .text-center {
   text-align: center;
 }
+.text-left {
+  text-align: left;
+}
 /* TAMAÑOS DE TEXTOS */
 .big-text {
   font-size: 3rem;
   margin: 1rem 0;
+}
+.mid-text {
+  font-size: 2.4rem;
+}
+/* INTERLINEADO */
+.operation-text {
+  font-size: 3rem;
+}
+/* BORDES */
+.borde_gris {
+  border: .3rem solid var(--gris);
+  border-radius: 1rem;  
+}
+.borde_negro {
+  border: .3rem solid var(--negro);
+  border-radius: 1rem;  
+}
+.borde_applejack {
+  border: .3rem solid var(--colorApplejack);
+  border-radius: 1rem;  
+}
+.borde_fluttershy {
+  border: .3rem solid var(--colorFluttershy);
+  border-radius: 1rem;  
+}
+.borde_rainbow {
+  border: .3rem solid var(--colorRainbow);
+  border-radius: 1rem;  
+}
+.borde_pinkie {
+  border: .3rem solid var(--colorPinky);
+  border-radius: 1rem;  
+}
+.borde_twilight {
+  border: .3rem solid var(--colorTwilight);
+  border-radius: 1rem;  
+}
+.borde_operacion {
+  border-top: 0;
+  border-right: 0;
+  border-bottom: .3rem;
+  border-left: 0; 
+  border-style: ridge;
+  border-color: var(--negro);
+}
+/* Colores */
+.color-applejack {
+  color: var(--colorApplejack);
+}
+.color-fluttershy {
+  color: var(--colorFluttershy);
+}
+.color-rainbow {
+  color: var(--colorRainbow);
+}
+.color-pinkie {
+  color: var(--colorPinky);
+}
+.color-twilight {
+  color: var(--colorTwilight);
 }
 /* Degradados */
 .sombra_ponis {
@@ -129,7 +219,7 @@ img {
               );
   -webkit-background-clip: text;
   background-clip: text;
-  text-shadow: -.2rem -.2rem 0 black;
+  text-shadow: -.2rem 0 0 black; 
 }
 .sombra_fluttershy {
   color: transparent;
@@ -141,7 +231,7 @@ img {
               );
   -webkit-background-clip: text;
   background-clip: text;
-  text-shadow: -.2rem -.2rem 0 black;
+  text-shadow: -.2rem 0 0 black;
 }
 .sombra_rainbow {
   color: transparent;
@@ -153,7 +243,7 @@ img {
               );
   -webkit-background-clip: text;
   background-clip: text;
-  text-shadow: -.2rem -.2rem 0 black;
+  text-shadow: -.2rem 0 0 black;
 }
 .sombra_pinkie {
   color: transparent;
@@ -165,7 +255,7 @@ img {
               );
   -webkit-background-clip: text;
   background-clip: text;
-  text-shadow: -.2rem -.2rem 0 black;
+  text-shadow: -.2rem 0 0 black;
 }
 .sombra_twilight {
   color: transparent;
@@ -177,6 +267,13 @@ img {
               );
   -webkit-background-clip: text;
   background-clip: text;
-  text-shadow: -.2rem -.2rem 0 black;
+  text-shadow: -.2rem 0 0 black;
+}
+.sombra_fallo {
+  color: transparent;
+  background-color: var(--colorFallo);
+  -webkit-background-clip: text;
+  background-clip: text;
+  text-shadow: -.2rem 0 0 black;
 }
 
