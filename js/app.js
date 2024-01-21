@@ -11,7 +11,8 @@ const appData = {
   resultado: 0,  // valor resultado de la operación
   intentos: 0,   // intentos de la misma operacion
   racha: 0,      // operaciones acertadas a la primera
-  puntosGanados: 0,
+  mulRacha: 1,   // valor multiplicador por racha
+  puntosGanados: 0, // puntos ganados en la ultima operacion
   oPonySel: null,// Pony con la que se está jugando
   comentario: "" // comentario de la poni respecto a nuestra última acción
 }
@@ -41,7 +42,8 @@ function Personaje (clave,
                     com_3aciertos,
                     com_6aciertos,
                     com_10aciertos,
-                    com_continuar
+                    com_continuar,
+                    com_acierto_fallo
                     ) {
   this.clave = clave;
   this.nombre = nombre;
@@ -59,6 +61,7 @@ function Personaje (clave,
   this.com_6aciertos = com_6aciertos;
   this.com_10aciertos = com_10aciertos;
   this.com_continuar = com_continuar;
+  this.com_acierto_fallo = com_acierto_fallo;
 }
 
 /* Personajes */
@@ -70,87 +73,92 @@ const oApplejack = new Personaje (
   pagApplejack,
   0,
   1,
-  `¡Esa se resistió!`,
+  `¡Probemos con esta!`,
   `¡Ush! ¡Que molestas las moscas!`,
-  `Concentrate ${jugador.nombre} ¡Tu puedes!`,
+  `Concentrate ¡Tu puedes!`,
   `¡Ah! Se ha escapado... Bueno, no pasa nada.`,
-  `Que bien! Esto va como la seda!`,
+  `¡Que bien! ¡Esto va como la seda!`,
   `Ya le hemos cogido el ritmo.`,
   `¡Wala! Mira como va. ¡Fabuloso!`,
   `¿Seguro que no has estudiado con Twilight?`,
-  `Otra mas. ¡Esto es un no parar!`
+  `Otra mas. ¡Esto es un no parar!`,
+  `¡Esa se resistió!`
 );
 const oFluttershy = new Personaje (
   "fluttershy",
   "Fluttershy",
   "Para Fluttershy lo mas importante es no molestar a los demás. Así que ella siempre va quitando hierro a las situaciones, a los problemas y a los malos rollos.",
   "Para ayudar a Fluttershy tendrás que realizar restas",
-  ()=>{alert("Has seleccionado a FlutterShy")},
+  pagFluttershy,
   1,
   3,
-  `¡Probemos con esta!`,
-  `¡Ush! ¡Que molestas las moscas!`,
-  `Concentrate ${jugador.nombre} ¡Tu puedes!`,
-  `¡Ah! Se ha escapado... Bueno, no pasa nada.`,
-  `Que bien! Esto va como la seda!`,
-  `Ya le hemos cogido el ritmo.`,
-  `¡Wala! Mira como va. ¡Fabuloso!`,
-  `¿Seguro que no has estudiado con Twilight?`,
-  `Otra mas. ¡Esto es un no parar!`  
+  `Disculpa, ¿podrias hacer esta?`,
+  `Lo siento, pero ese no es.`,
+  `Vaya, esta es complicada.`,
+  `No importa. Prueba esta!`,
+  `Genial! Así se hace!`,
+  `¡Lo has pillado!`,
+  `¡Woo! Esa era dificil, ¿verdad?`,
+  `¿Has pensado en dedicarte a la magia?`,
+  `¡Lo haces muy bien! ¿Me ayudas con esta?`,
+  `Ufff.. Por fin. ¡Esa costó!`
 );
 const oRainbow = new Personaje (
   "rainbow",
   "Rainbow Dash",
   "Rainbow Dash es una alma veloz! Le encanta la velocidad y por ello cuanto más rápdio alcanza sus metas mejor se siente. Para ella las cosas van de dos en dos, de tres en tres o cuatro en cuatro, la cuestión es agrupar!",
   "Para ayudar a Rainbow Dash tendrás que realizar multiplicaciones",
-  undefined,
+  pagRainbow,
   0,
   5,
-  `¡Probemos con esta!`,
-  `¡Ush! ¡Que molestas las moscas!`,
-  `Concentrate ${jugador.nombre} ¡Tu puedes!`,
-  `¡Ah! Se ha escapado... Bueno, no pasa nada.`,
-  `Que bien! Esto va como la seda!`,
-  `Ya le hemos cogido el ritmo.`,
-  `¡Wala! Mira como va. ¡Fabuloso!`,
-  `¿Seguro que no has estudiado con Twilight?`,
-  `Otra mas. ¡Esto es un no parar!`
+  `¡Vamos! ¡A cazar esas cruces!`,
+  `¡Ah! ¡Que bandazo!`,
+  `¡No te salgas de la carrera!`,
+  `¡Se piró! Bueno, tengo más cruces.`,
+  `Vuela... vuela! ¡¡VUELA!!`,
+  `Eso ha sido rápido. Flipante...`,
+  `¡Eh, que me adelantas! Eres buen@.`,
+  `Te voy a pedir que seas mi compañera de carreras`,
+  `Vamos. ¡A mover esas alas!`,
+  `¡Buah, casi me parto un ala!`
 );
 const oPinkie = new Personaje (
   "pinkie",
   "Pinkie Pie",
   "¡¡ Pinkie Pie es el alma de la fiesta !! Tiene alegría y diversión para rato. Por ello le encanta repartir su jovialidad, su juerga, su música y su entusiasmo con todo el mundo. ¿Le ayudas a decidir que parte le toca a cada uno?",
   "Para ayudar a Pinkie Pie tendrás que realizar divisiones",
-  undefined,
+  pagPinkie,
   1,
   7,
-  `¡Probemos con esta!`,
-  `¡Ush! ¡Que molestas las moscas!`,
-  `Concentrate ${jugador.nombre} ¡Tu puedes!`,
-  `¡Ah! Se ha escapado... Bueno, no pasa nada.`,
-  `Que bien! Esto va como la seda!`,
+  `¡Empezamos!`,
+  `¡Mecachis!`,
+  `Valiente ¡Animo!`,
+  `¡Bueno! Siempre se escapa algún globo... Probemos esta.`,
+  `¡Eso es! Baila, baila!`,
   `Ya le hemos cogido el ritmo.`,
-  `¡Wala! Mira como va. ¡Fabuloso!`,
-  `¿Seguro que no has estudiado con Twilight?`,
-  `Otra mas. ¡Esto es un no parar!`
+  `¡Ala! Si hace malabares. ¡Genial!`,
+  `¿Has visto a un unicornio saltar a la para coja?`,
+  `Otra mas. ¡Esto está equilibrado!`,
+  `¡Nos hemos mantenido a flote!`
 );
 const oTwilight = new Personaje (
   "twilight",
   "Twilight Sparkle",
   "Twily para las amigas, es una alicornio princesa. Como tal tiene muchas responsabilidades, pero pese a ello siempre busca la forma de ayudar a sus amigas. Así que ha tomado tareas de todas ellas y ha pensado en tí para ayudarle. ¿Le echas una pata?",
   "Para ayudar a Twilight tendrás que hacer operaciones matemáticas",
-  undefined,
+  pagTwilight,
   0,
   10,
-  `¡Probemos con esta!`,
-  `¡Ush! ¡Que molestas las moscas!`,
-  `Concentrate ${jugador.nombre} ¡Tu puedes!`,
-  `¡Ah! Se ha escapado... Bueno, no pasa nada.`,
-  `Que bien! Esto va como la seda!`,
-  `Ya le hemos cogido el ritmo.`,
-  `¡Wala! Mira como va. ¡Fabuloso!`,
-  `¿Seguro que no has estudiado con Twilight?`,
-  `Otra mas. ¡Esto es un no parar!`
+  `¡Tenemos noticias frescas!`,
+  `¡Ei! ¡Apunta el cuerno al sitio!`,
+  `Esa energia hay que recolocarla.`,
+  `¡Ah! Se ha esfumado... Bueno, probemos más trucos.`,
+  `Bien pensado! Lo llevas bien!`,
+  `Esto te está saliendo... ¡genial!`,
+  `¿¡Que!? Esa yo no la sabía. ¡Brillante!`,
+  `Serias buena asistente de la princesa Celestia...`,
+  `Otro encargo. ¡Estamos a tope!`,
+  `¡Casi perdemos la magia!`
 );
 
 let divPersonajes;
@@ -179,15 +187,37 @@ function eliminarDatosJugador() {
   localStorage.removeItem("mates-ponis-nivel");
 }
 
+/** Guardar datos de la aplicación en LocalStorage */
+function guardarAppData() {
+  localStorage.setItem("mates-ponis-racha", appData.racha.toString());
+  localStorage.setItem("mates-ponis-exp-obt", appData.puntosGanados.toString());
+}
+
+/** Cargar datos de la aplicación en LocalStorage */
+function cargarAppData() {
+  appData.racha = parseInt(localStorage.getItem("mates-ponis-racha"));
+  appData.puntosGanados = parseInt(localStorage.getItem("mates-ponis-exp-obt"));
+}
+
+/** Eliminar datos de la aplicación en LocalStorage */
+function eliminarAppData() {
+  localStorage.removeItem("mates-ponis-racha");
+  localStorage.removeItem("mates-ponis-exp-obt");
+}
+
 /** Creación de un jugador nuevo */
 function crearJugadorNuevo(){
   const inputName = document.getElementById("nombre-jugador");
   //jugador.nombre = inputName.value.replace(/[^\w]/gi, '');
+  if (inputName.value==="") return;
   jugador.nombre = inputName.value;
   jugador.exp_total = 0;
   jugador.exp_actual = 0;
   jugador.nivel = 1;
+  appData.racha = 0;
+  appData.puntosGanados = 0;
   guardarDatosJugador();
+  guardarAppData();
   pagSeleccionPersonaje();
 }
 /** Actualizar el nombre de un jugador */
@@ -222,7 +252,10 @@ function eliminarAyudante() {
     jugador.exp_actual = 0;
     jugador.exp_total = 0;
     jugador.nivel = 1;
+    appData.racha = 0;
+    appData.puntosGanados = 0;
     eliminarDatosJugador();
+    eliminarAppData();
     pagPedirNombreJugador();  
   }
 }
@@ -238,6 +271,17 @@ function calcularNivel(exp){
   }
   return nvl;
 }
+/** calculo de los PE que faltan para el siguiente nivel */
+function siguienteNivelPE(exp){
+  let nvl = 1;
+  let expRest = exp;
+  const pNec = 200;
+  while (expRest >= nvl*pNec) {
+    expRest -= nvl*pNec;
+    nvl++;
+  }
+  return nvl*pNec - expRest;  
+}
 /** devuelve la clave del ultimo personaje jugable */
 function poderJugador(){
   if(jugador.nivel >= 10) return "twilight";
@@ -246,10 +290,24 @@ function poderJugador(){
   if(jugador.nivel >= 3)  return "fluttershy";
   return "applejack";
 }
+function poderJugadorNivel(nivel){
+  if(nivel >= 10) return "twilight";
+  if(nivel >= 7)  return "pinkie";
+  if(nivel >= 5)  return "rainbow";
+  if(nivel >= 3)  return "fluttershy";
+  return "applejack";
+}
+function personajeJugadorNivel(nivel){
+  if(nivel >= 10) return oTwilight;
+  if(nivel >= 7)  return oPinkie;
+  if(nivel >= 5)  return oRainbow;
+  if(nivel >= 3)  return oFluttershy;
+  return oApplejack;
+}
 
 function numeroRandom(cifras) {
   let num = 0;
-  let ini = 0;
+  let ini = 1;
   let fin = 0;
   if(cifras<=0) return 0;
   if(cifras>1) ini = 10**(cifras-1);
@@ -277,38 +335,111 @@ function minmaxData(dato, min, max){
 // X  5      5      5
 
 /** CREACIÓN Y COMPROBACIÓN DE OPERACIONES */
-function crearSuma() {
+function crearSuma(multiplicadorRacha = 1) {
+  appData.operacion = 0;
+  appData.mulRacha = multiplicadorRacha;
   if (appData.intentos===0) {
     appData.cifrA = minmaxData(Math.ceil(jugador.nivel/2+0.5),1,5);
     appData.cifrB = minmaxData(Math.floor(jugador.nivel/2+0.5),1,5);
-
+    
     appData.datoA = numeroRandom(appData.cifrA);
     appData.datoB = numeroRandom(appData.cifrB);
     appData.resultado = appData.datoA + appData.datoB;
-    appData.cifras = Math.max(appData.cifrA, appData.cifrB)+3;
+    appData.cifras = Math.max(appData.cifrA, appData.cifrB)+4;
+  }
+  
+  let output  = "&nbsp;&nbsp;&nbsp;&nbsp;" + appData.datoA.toString() + "<BR>";
+  output += "+&nbsp;&nbsp;&nbsp;" + 
+  (appData.cifrA-appData.cifrB===1?"&nbsp;":"") + 
+  appData.datoB.toString();
+  
+  return output;
+}
+function crearResta(multiplicadorRacha = 1) {
+  let datA, datB;
+  appData.operacion = 1;
+  appData.mulRacha = multiplicadorRacha;
+  if (appData.intentos===0) {
+    appData.cifrA = minmaxData(Math.ceil(jugador.nivel/2-0.5),1,5);
+    appData.cifrB = minmaxData(Math.floor(jugador.nivel/2-0.5),1,5);
+
+    datA = numeroRandom(appData.cifrA);
+    datB = numeroRandom(appData.cifrB);
+    appData.datoA = Math.max(datA, datB);
+    appData.datoB = Math.min(datA, datB);
+    appData.resultado = appData.datoA - appData.datoB;
+    appData.cifras = Math.max(appData.cifrA, appData.cifrB)+4;
   }
 
-  let output  = "&nbsp;&nbsp;" + appData.datoA.toString() + "<BR>";
-      output += "+&nbsp;" + 
+  let output  = "&nbsp;&nbsp;&nbsp;&nbsp;" + appData.datoA.toString() + "<BR>";
+      output += "-&nbsp;&nbsp;&nbsp;" + 
                 (appData.cifrA-appData.cifrB===1?"&nbsp;":"") + 
                  appData.datoB.toString();
 
   return output;
-
 }
-function crearResta() {}
-function crearMultiplicacion() {}
-function crearDivision() {}
+function crearMultiplicacion(multiplicadorRacha = 2) {
+  appData.operacion = 2;
+  appData.mulRacha = multiplicadorRacha;
+  if (appData.intentos===0) {
+    appData.cifrA = minmaxData(Math.ceil(jugador.nivel/2-1.5),1,5);
+    appData.cifrB = minmaxData(Math.floor(jugador.nivel/2-1.5),1,5);
+
+    appData.datoA = numeroRandom(appData.cifrA);
+    appData.datoB = numeroRandom(appData.cifrB);
+    appData.resultado = appData.datoA * appData.datoB;
+    appData.cifras = Math.max(appData.cifrA, appData.cifrB)+4;
+  }
+
+  let output  = "&nbsp;&nbsp;&nbsp;&nbsp;" + appData.datoA.toString() + "<BR>";
+      output += "&times;&nbsp;&nbsp;&nbsp;" + 
+                (appData.cifrA-appData.cifrB===1?"&nbsp;":"") + 
+                 appData.datoB.toString();
+
+  return output;  
+}
+function crearDivision(multiplicadorRacha = 2) {
+  appData.operacion = 3;
+  appData.mulRacha = multiplicadorRacha;
+  let espacios = "&nbsp;";
+  let iEsp = 0;
+  if (appData.intentos===0) {
+    appData.cifrB = minmaxData(Math.ceil(jugador.nivel/2-2.5),1,4);
+    let cifrR = minmaxData(Math.floor(jugador.nivel/2-2.5),1,4);
+
+    appData.resultado = numeroRandom(cifrR);
+    appData.datoB     = numeroRandom(appData.cifrB);
+    appData.datoA     = appData.datoB * appData.resultado;
+    appData.cifrA     = appData.datoA.toString().length;
+    appData.cifras = Math.max(appData.cifrA, appData.cifrB)+4;
+  }
+  iEsp = appData.cifrA-appData.cifrB;
+  while (iEsp>0) {espacios += "&nbsp;"; iEsp--;}
+  let output  = "&nbsp;&nbsp;&nbsp;&nbsp;" + appData.datoA.toString() + "<BR>";
+      output += "&divide;&nbsp;&nbsp;" + espacios + appData.datoB.toString();
+
+  return output;   
+}
+function crearOperacionEspecialTwilight() {
+  let operacionRandom = Math.floor(Math.random()*4);
+  switch (operacionRandom) {
+    case 0: return crearSuma(3);
+    case 1: return crearResta(4);
+    case 2: return crearMultiplicacion(5);
+    case 3: return crearDivision(6);
+  }
+}
 
 function comprobarResultado() {
   const itRes = document.getElementById("resultado-operacion");
   if (itRes.value === "") return;
   let resultado = parseInt(itRes.value);
-  console.log(`Has puesto ${resultado} y el resultado correcto es ${appData.resultado}`);
   if (resultado === appData.resultado) {
-    if(appData.intentos===0) (appData.racha<10?appData.racha++:appData.racha=10);
+    if(appData.intentos===0) appData.racha++;
     appData.intentos = 0;
-    switch (appData.racha) {
+    let rachaEv = appData.racha % 10;
+    if (rachaEv===0) rachaEv++;
+    switch (rachaEv) {
       case 10: appData.comentario = appData.oPonySel.com_10aciertos; break;
       case 9: appData.comentario = appData.oPonySel.com_continuar; break;
       case 8: appData.comentario = appData.oPonySel.com_continuar; break;
@@ -319,19 +450,28 @@ function comprobarResultado() {
       case 3: appData.comentario = appData.oPonySel.com_3aciertos; break;
       case 2: appData.comentario = appData.oPonySel.com_continuar; break;
       case 1: appData.comentario = appData.oPonySel.com_acierto; break;
-      case 0: appData.comentario = appData.oPonySel.com_inicio; break;
+      case 0: appData.comentario = appData.oPonySel.com_acierto_fallo; break;
     }
-    appData.puntosGanados = appData.cifrA + appData.cifrB + appData.racha;
+    //CALCULO DE PUNTOS GANADOS
+    switch (appData.operacion) {
+      case 0: appData.puntosGanados = appData.cifrA*1 + appData.cifrB*1 + 0 + Math.min(appData.racha, 10)*appData.mulRacha; break;
+      case 1: appData.puntosGanados = appData.cifrA*1 + appData.cifrB*1 + 3 + Math.min(appData.racha, 10)*appData.mulRacha; break;
+      case 2: appData.puntosGanados = appData.cifrA*2 + appData.cifrB*2 + 4 + Math.min(appData.racha, 10)*appData.mulRacha; break;
+      case 3: appData.puntosGanados = appData.cifrA*3 + appData.cifrB*3 + 3 + Math.min(appData.racha, 10)*appData.mulRacha; break;
+    }
+    
     jugador.exp_total  += appData.puntosGanados;
     jugador.exp_actual += appData.puntosGanados;
     let nuevoNivel = calcularNivel(jugador.exp_total);
     if(nuevoNivel > jugador.nivel) {
       jugador.nivel = nuevoNivel;
       appData.comentario = `¡Espectacular ${jugador.nombre}! Has subido a nivel ${jugador.nivel}`;
+      showLevelUp(nuevoNivel);
+    } else {
+      appData.oPonySel.operacion();
     }
     guardarDatosJugador();
-    console.log(appData);
-    appData.oPonySel.operacion();
+    guardarAppData();
   }
   else {
     appData.racha = 0;
@@ -343,9 +483,22 @@ function comprobarResultado() {
       appData.intentos = 0;
     }
     appData.puntosGanados=0;
-    console.log(appData);
+    guardarAppData();
     appData.oPonySel.operacion();
   }
+}
+function pasarNivel(){
+  jugador.exp_total += jugador.nivel * 200;
+  jugador.nivel = calcularNivel(jugador.exp_total);
+  guardarDatosJugador();
+  pagSeleccionPersonaje();
+}
+function prepararNivel(){
+  jugador.exp_total = 0;
+  for (let i=1;i<=jugador.nivel;i++) jugador.exp_total += i * 200;
+  jugador.exp_total -= 1;
+  guardarDatosJugador();
+  pagSeleccionPersonaje();
 }
 
 /*
@@ -375,11 +528,11 @@ function comprobarResultado() {
   · SUMA:
       Nivel 1  -> A+B   1 punto * (A+B);
   · RESTA:
-      Nivel 3  -> A-B   1 punto * (A) + 2 puntos * (B)
+      Nivel 3  -> A-B   1 punto * (A+B)  + 3 puntos
   · MULTIPLICACION:
-      Nivel 5  -> A*B   2 puntos * (A+B)
+      Nivel 5  -> A*B   2 puntos * (A+B) + 4 puntos
   · DIVISION:
-      Nivel 7  -> A*B   2 puntos * (A) + 3 puntos * (B)
+      Nivel 7  -> A*B   3 puntos * (A+B) + 3 puntos
   · TWILIGHT:
       Nivel 10 -> Todas las anteriores + 3 puntos por acierto acumulado
 
@@ -417,27 +570,47 @@ function comprobarResultado() {
 */
 /* PONER JUGADOR */
 function InsertJugadorInto(oHTMLParent) {
+  let mostrarUO = (appData.puntosGanados!==0);
   // DIV
   const div = document.createElement("div");
   div.classList.add("jugador");
-  // NIVEL
+  // NIVEL Y PE para SIG
+  const divniv = document.createElement("div");
   const nivj = document.createElement("p");
   nivj.classList.add("nivel_jugador");
   nivj.innerHTML = `Nv ${jugador.nivel}`;
+  const nivs = document.createElement("p");
+  nivs.classList.add("nivel_siguiente");
+  nivs.innerHTML = `sig.nv ${siguienteNivelPE(jugador.exp_total)} PE`;
+  divniv.appendChild(nivj);
+  divniv.appendChild(nivs);
   // NOMBRE
+  const divnom = document.createElement("div");
   const nomj = document.createElement("p");
   nomj.classList.add("nombre_jugador");
   nomj.classList.add(`sombra_${poderJugador()}`);
   nomj.innerHTML = `${jugador.nombre}`;
   nomj.addEventListener("click", pagOpcionesJugador);
+  const racj = document.createElement("p");
+  racj.classList.add("racha_jugador");
+  if (appData.racha !== 0) racj.innerHTML = `racha <span class="sombra_${poderJugador()}">+${Math.min(appData.racha, 10)}</span> PE`;
+  divnom.appendChild(nomj);
+  divnom.appendChild(racj);
   // EXP_ACTUAL
+  const divexp = document.createElement("div");
   const expj = document.createElement("p");
   expj.classList.add("exp_jugador");
   expj.innerHTML = `${jugador.exp_actual} PE`;
+  const expo = document.createElement("p");
+  expo.classList.add("exp_obtenida");
+  if (mostrarUO) expo.innerHTML = `ultimos ${appData.puntosGanados} PE`;
+  else expo.innerHTML = ``;
+  divexp.appendChild(expj);
+  divexp.appendChild(expo);
 
-  div.appendChild(nivj);
-  div.appendChild(nomj);
-  div.appendChild(expj);
+  div.appendChild(divniv);
+  div.appendChild(divnom);
+  div.appendChild(divexp);
 
   oHTMLParent.appendChild(div);
 }
@@ -506,6 +679,81 @@ function GrupoPersonajes(oHTMLParent, listaPersonajes){
   listaPersonajes.forEach( personaje => {
     InsertPersonajeInto(div, personaje);
   });
+}
+
+// INFORMACION SUBIDA DE NIVEL
+function showLevelUp(nivel_nuevo){
+  let sombra = poderJugadorNivel(nivel_nuevo);  
+  let sombra_ant = poderJugadorNivel(nivel_nuevo-1);
+  const oPersonajeNuevo = personajeJugadorNivel(nivel_nuevo);
+  
+  const div = document.createElement("div");
+  div.classList.add("popup_message");
+
+  const divn = document.createElement("div");
+  divn.classList.add(`notificacion`,`borde_${sombra}`, "flex-column-center", "text-center");
+
+
+    const htit = document.createElement("h2");
+    htit.innerHTML = `Subes de nivel`;
+    htit.classList.add(`sombra_${sombra}`);
+
+    const pniv = document.createElement("p");
+    pniv.innerHTML = `<span class="sombra_${sombra_ant}">Nv ${nivel_nuevo-1}</span> &#8212;>&nbsp;&nbsp;<span class="sombra_${sombra}">Nv ${nivel_nuevo}</span>`;
+    pniv.classList.add("mid-text");
+
+    let personajeNuevo = false;
+    const nomP = document.createElement("h3");
+    nomP.innerHTML = oPersonajeNuevo.nombre;
+    const imgP = document.createElement("img");
+    imgP.classList.add("imagen_pony");
+    const dscP = document.createElement("p");
+    dscP.innerHTML = `¡Hola ${jugador.nombre}! Voy a necesitar tu ayuda a partir de ahora. Espero que quieras hecharme una pata.`;
+    switch (nivel_nuevo) {
+      case 3: {
+        personajeNuevo = true;
+        imgP.setAttribute("src",`/img/${sombra}.webp`);
+        imgP.setAttribute("alt",`imagen-${sombra}`);
+        break;
+      }
+      case 5: {
+        imgP.setAttribute("src",`/img/${sombra}.webp`);
+        imgP.setAttribute("alt",`imagen-${sombra}`);
+        personajeNuevo = true;
+        break;
+      }
+      case 7: {
+        imgP.setAttribute("src",`/img/${sombra}.webp`);
+        imgP.setAttribute("alt",`imagen-${sombra}`);
+        personajeNuevo = true;
+        break;
+      }
+      case 10: {
+        imgP.setAttribute("src",`/img/${sombra}.jpg`);
+        imgP.setAttribute("alt",`imagen-${sombra}`);
+        personajeNuevo = true;
+        break;
+      }
+    }
+
+    const btnOk = document.createElement("btn");
+    btnOk.classList.add("btn");
+    btnOk.classList.add(`btn-${sombra}`);
+    btnOk.innerHTML = "OK";
+    btnOk.addEventListener("click", ()=>{
+      appData.oPonySel.operacion();
+    });
+  
+  divn.appendChild(htit);
+  divn.appendChild(pniv);
+  if (personajeNuevo) {
+    divn.appendChild(nomP);
+    divn.appendChild(imgP);
+    divn.appendChild(dscP);
+  }
+  divn.appendChild(btnOk);
+  div.appendChild(divn);
+  divApp.appendChild(div);
 }
 
 /********** PAGINAS ********/
@@ -635,7 +883,7 @@ function pagOpcionesJugador(){
   pTCN.classList.add(`color_${sombra}`);
   
   const pCN = document.createElement("p");
-  pCN.innerHTML = `Aqui puede cambiar tu nombre.<BR>Escribe tu nombre en la casilla de texto y pulsa el botón CAMBIAR NOMBRE.`;
+  pCN.innerHTML = `Aqui puedes cambiar tu nombre.<BR>Escribe tu nombre en la casilla de texto y pulsa el botón CAMBIAR NOMBRE.`;
   pCN.classList.add("text-center");
 
   const inputCN = document.createElement("input");
@@ -748,28 +996,68 @@ function pagOpcionesJugador(){
   // Colocar elementos
   div.appendChild(htit);
   div.appendChild(p1);
-  div.appendChild(divCN);
   div.appendChild(divCP);
+  div.appendChild(divCN);
   div.appendChild(divEJ);
   div.appendChild(btnRT);
 
   divApp.appendChild(div);
 }
 
-// PAGINA PERSONAJE APPLEJACK (SUMAS)
+// preparacion PAGINA APPLEJACK (SUMAS)
 function pagApplejack(){
+  let bComInicio = false;
+  if (appData.oPonySel === null) bComInicio = true;
   appData.oPonySel = oApplejack;
-  
+  if(bComInicio) appData.comentario = appData.oPonySel.com_inicio;
+  pagPersonaje(crearSuma);
+}
+// preparacion PAGINA FLUTTERSHY (RESTAS)
+function pagFluttershy(){
+  let bComInicio = false;
+  if (appData.oPonySel === null) bComInicio = true;
+  appData.oPonySel = oFluttershy;
+  if(bComInicio) appData.comentario = appData.oPonySel.com_inicio;
+  pagPersonaje(crearResta);
+}
+// preparacion PAGINA RAINBOW (MULTIPLICACIONES)
+function pagRainbow(){
+  let bComInicio = false;
+  if (appData.oPonySel === null) bComInicio = true;
+  appData.oPonySel = oRainbow;
+  if(bComInicio) appData.comentario = appData.oPonySel.com_inicio;
+  pagPersonaje(crearMultiplicacion);
+}
+// preparacion PAGINA PINKIE (DIVISIONES)
+function pagPinkie(){
+  let bComInicio = false;
+  if (appData.oPonySel === null) bComInicio = true;
+  appData.oPonySel = oPinkie;
+  if(bComInicio) appData.comentario = appData.oPonySel.com_inicio;
+  pagPersonaje(crearDivision);
+}
+// preparacion PAGINA TWILIGHT (DE TODO ALEATORIO)
+function pagTwilight(){
+  let bComInicio = false;
+  if (appData.oPonySel === null) bComInicio = true;
+  appData.oPonySel = oTwilight;
+  if(bComInicio) appData.comentario = appData.oPonySel.com_inicio;
+  pagPersonaje(crearOperacionEspecialTwilight);
+}
+
+// PAGINA PERSONAJE (SUMAS)
+function pagPersonaje(crearOperacion){ 
   divApp.innerHTML = "";
   InsertJugadorInto(divApp);
   // DIV
   const div = document.createElement("div");
   div.classList.add("flex-column-center");
   const divZO = document.createElement("div");
-  divZO.classList.add("flex-column-center", "bg_applejack", "borde_applejack", "zona-operaciones");
+  divZO.classList.add("flex-column-center", `bg_${appData.oPonySel.clave}`,
+                  `borde_${appData.oPonySel.clave}`, "zona-operaciones");
 
   const hTt = document.createElement("h2");
-  hTt.innerHTML = "Applejack";
+  hTt.innerHTML = appData.oPonySel.nombre;
   hTt.classList.add("text-center");
   
   const divEx = document.createElement("div");
@@ -780,20 +1068,21 @@ function pagApplejack(){
 
   const pOp = document.createElement("p");
   pOp.classList.add("texto_operacion");
-  pOp.innerHTML = crearSuma();
+  pOp.innerHTML = crearOperacion();
 
   let iOp = document.createElement("input");
   iOp.classList.add("intro_resultado");
   iOp.classList.add(`borde_gris`);
   iOp.setAttribute("id","resultado-operacion");
   iOp.setAttribute("type","number");
-  iOp.style.width = (appData.cifras*2).toString() + "rem";
-
+  iOp.style.width = (appData.cifras*1.95).toString() + "rem";
+  
   const bOp = document.createElement("button");
   bOp.classList.add("btn-comprobacion");
-  bOp.classList.add(`btn-applejack`);
+  bOp.classList.add(`btn-${appData.oPonySel.clave}`);
   bOp.innerHTML = `COMPROBAR`;
   bOp.addEventListener("click", comprobarResultado);
+  bOp.style.width = (appData.cifras*1.95).toString() + "rem";
 
   divOp.appendChild(pOp);
   divOp.appendChild(iOp);
@@ -801,7 +1090,7 @@ function pagApplejack(){
   
   const pCm = document.createElement("p");
   pCm.classList.add("texto_comentario");
-  if (appData.intentos===0) pCm.classList.add("sombra_applejack");
+  if (appData.intentos===0) pCm.classList.add(`sombra_${appData.oPonySel.clave}`);
   else pCm.classList.add("sombra_fallo");
   pCm.setAttribute("id","comentario-pony");
   pCm.innerHTML = appData.comentario;
@@ -809,11 +1098,24 @@ function pagApplejack(){
   divEx.appendChild(divOp);
   divEx.appendChild(pCm);
 
+  // REGRESAR a PAGINA Seleccion de personaje
+  const btnRT = document.createElement("button");
+  btnRT.classList.add("btn");
+  btnRT.classList.add(`btn-${appData.oPonySel.clave}`);
+  btnRT.classList.add("margen-vertical");
+  btnRT.innerHTML = `VOLVER`;
+  btnRT.addEventListener("click", ()=>{
+    appData.comentario = "";
+    appData.oPonySel = null;
+    pagSeleccionPersonaje();
+  });  
+
   // Colocamos elementos
   divZO.appendChild(hTt);
   divZO.appendChild(divEx);
 
   div.appendChild(divZO);
+  div.appendChild(btnRT);
 
   divApp.appendChild(div);
 }
@@ -824,7 +1126,7 @@ function pagApplejack(){
 globalThis.addEventListener("load", ()=>{
   divApp = document.getElementById("App");
   cargarDatosJugador();
+  cargarAppData();
   if (jugador.nombre === null) pagPedirNombreJugador();
   else pagBienvenidaJugador();
-  console.log(numeroRandom(3));
 })
