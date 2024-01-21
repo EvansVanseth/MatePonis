@@ -452,10 +452,10 @@ function comprobarResultado() {
     }
     //CALCULO DE PUNTOS GANADOS
     switch (appData.operacion) {
-      case 0: appData.puntosGanados = appData.cifrA*1 + appData.cifrB*1 + 0 + maxRacha()*appData.mulRacha; break;
-      case 1: appData.puntosGanados = appData.cifrA*1 + appData.cifrB*1 + 3 + maxRacha()*appData.mulRacha; break;
-      case 2: appData.puntosGanados = appData.cifrA*2 + appData.cifrB*2 + 4 + maxRacha()*appData.mulRacha; break;
-      case 3: appData.puntosGanados = appData.cifrA*3 + appData.cifrB*3 + 3 + maxRacha()*appData.mulRacha; break;
+      case 0: appData.puntosGanados = appData.cifrA*1     + appData.cifrB*1 + 0 + maxRacha()*appData.mulRacha; break;
+      case 1: appData.puntosGanados = appData.cifrA*1     + appData.cifrB*1 + 3 + maxRacha()*appData.mulRacha; break;
+      case 2: appData.puntosGanados = appData.cifrA*2     + appData.cifrB*2 + 4 + maxRacha()*appData.mulRacha; break;
+      case 3: appData.puntosGanados = appData.resultado*3 + appData.cifrB*3 + 3 + maxRacha()*appData.mulRacha; break;
     }
     
     jugador.exp_total  += appData.puntosGanados;
