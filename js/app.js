@@ -430,6 +430,10 @@ function crearOperacionEspecialTwilight() {
   }
 }
 
+function maxRacha(){
+  return Math.min(appData.racha, 4);
+};
+
 function comprobarResultado() {
   const itRes = document.getElementById("resultado-operacion");
   if (itRes.value === "") return;
@@ -437,27 +441,21 @@ function comprobarResultado() {
   if (resultado === appData.resultado) {
     if(appData.intentos===0) appData.racha++;
     appData.intentos = 0;
-    let rachaEv = appData.racha % 10;
+    let rachaEv = appData.racha % 5;
     if (rachaEv===0) rachaEv++;
     switch (rachaEv) {
-      case 10: appData.comentario = appData.oPonySel.com_10aciertos; break;
-      case 9: appData.comentario = appData.oPonySel.com_continuar; break;
-      case 8: appData.comentario = appData.oPonySel.com_continuar; break;
-      case 7: appData.comentario = appData.oPonySel.com_continuar; break;
-      case 6: appData.comentario = appData.oPonySel.com_6aciertos; break;
-      case 5: appData.comentario = appData.oPonySel.com_continuar; break;
-      case 4: appData.comentario = appData.oPonySel.com_continuar; break;
-      case 3: appData.comentario = appData.oPonySel.com_3aciertos; break;
-      case 2: appData.comentario = appData.oPonySel.com_continuar; break;
+      case 4: appData.comentario = appData.oPonySel.com_10aciertos; break;
+      case 3: appData.comentario = appData.oPonySel.com_6aciertos; break;
+      case 2: appData.comentario = appData.oPonySel.com_3aciertos; break;
       case 1: appData.comentario = appData.oPonySel.com_acierto; break;
       case 0: appData.comentario = appData.oPonySel.com_acierto_fallo; break;
     }
     //CALCULO DE PUNTOS GANADOS
     switch (appData.operacion) {
-      case 0: appData.puntosGanados = appData.cifrA*1 + appData.cifrB*1 + 0 + Math.min(appData.racha, 10)*appData.mulRacha; break;
-      case 1: appData.puntosGanados = appData.cifrA*1 + appData.cifrB*1 + 3 + Math.min(appData.racha, 10)*appData.mulRacha; break;
-      case 2: appData.puntosGanados = appData.cifrA*2 + appData.cifrB*2 + 4 + Math.min(appData.racha, 10)*appData.mulRacha; break;
-      case 3: appData.puntosGanados = appData.cifrA*3 + appData.cifrB*3 + 3 + Math.min(appData.racha, 10)*appData.mulRacha; break;
+      case 0: appData.puntosGanados = appData.cifrA*1 + appData.cifrB*1 + 0 + maxRacha()*appData.mulRacha; break;
+      case 1: appData.puntosGanados = appData.cifrA*1 + appData.cifrB*1 + 3 + maxRacha()*appData.mulRacha; break;
+      case 2: appData.puntosGanados = appData.cifrA*2 + appData.cifrB*2 + 4 + maxRacha()*appData.mulRacha; break;
+      case 3: appData.puntosGanados = appData.cifrA*3 + appData.cifrB*3 + 3 + maxRacha()*appData.mulRacha; break;
     }
     
     jugador.exp_total  += appData.puntosGanados;
@@ -593,7 +591,7 @@ function InsertJugadorInto(oHTMLParent) {
   nomj.addEventListener("click", pagOpcionesJugador);
   const racj = document.createElement("p");
   racj.classList.add("racha_jugador");
-  if (appData.racha !== 0) racj.innerHTML = `racha <span class="sombra_${poderJugador()}">+${Math.min(appData.racha, 10)}</span> PE`;
+  if (appData.racha !== 0) racj.innerHTML = `racha <span class="sombra_${poderJugador()}">+${maxRacha()}</span> PE`;
   divnom.appendChild(nomj);
   divnom.appendChild(racj);
   // EXP_ACTUAL
