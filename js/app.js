@@ -916,7 +916,7 @@ function pagOpcionesJugador(){
   pCP.innerHTML = `Aqui puede canjear tus puntos por dinero real.<BR>
   Escribe la cantidad que desees cambiar y pulsa el botón CANJEAR PUNTOS.<BR>
   Los puntos canjeados desaparecerán de tu puntuación.<BR>
-  < 200 puntos = 1,00 € >`;
+  < 1000 puntos = 5,00 € >`;
   pCP.classList.add("text-center");
 
   const pAD = document.createElement("p");
