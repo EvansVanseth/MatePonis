@@ -85,6 +85,7 @@ img {
   border-radius: 1rem;
   padding: .5rem 2rem;
   width: 30rem;
+  max-width: 90%;
   margin: .5rem auto; 
   transition-property: background-color;
   transition-duration: 0.4s;
