@@ -378,7 +378,7 @@ function crearResta(multiplicadorRacha = 1) {
 
   return output;
 }
-function crearMultiplicacion(multiplicadorRacha = 2) {
+function crearMultiplicacion(multiplicadorRacha = 1) {
   appData.operacion = 2;
   appData.mulRacha = multiplicadorRacha;
   if (appData.intentos===0) {
@@ -398,7 +398,7 @@ function crearMultiplicacion(multiplicadorRacha = 2) {
 
   return output;  
 }
-function crearDivision(multiplicadorRacha = 2) {
+function crearDivision(multiplicadorRacha = 1) {
   appData.operacion = 3;
   appData.mulRacha = multiplicadorRacha;
   let espacios = "&nbsp;";
@@ -423,10 +423,10 @@ function crearDivision(multiplicadorRacha = 2) {
 function crearOperacionEspecialTwilight() {
   let operacionRandom = Math.floor(Math.random()*4);
   switch (operacionRandom) {
-    case 0: return crearSuma(3);
-    case 1: return crearResta(4);
-    case 2: return crearMultiplicacion(5);
-    case 3: return crearDivision(6);
+    case 0: return crearSuma(2);
+    case 1: return crearResta(2);
+    case 2: return crearMultiplicacion(3);
+    case 3: return crearDivision(4);
   }
 }
 
